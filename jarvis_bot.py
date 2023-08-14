@@ -5,7 +5,8 @@ from dotenv import load_dotenv
 load_dotenv()
 
 intents = discord.Intents.default()
-client = discord.Client(intents=intents)
+client = discord.Client(intents=intents, messages=True,
+                        guilds=True, reactions=True)
 BOT_TOKEN = os.getenv('DISCORD_BOT_TOKEN')
 
 
@@ -19,8 +20,8 @@ async def on_message(message):
     if message.author == client.user:
         return
 
-    if message.content == '!hello':
-        await message.channel.send('Hello!')
+    if message.content == '!test':
+        await message.channel.send('Test successful!')
 
 
 client.run(BOT_TOKEN)
