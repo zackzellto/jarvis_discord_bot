@@ -41,6 +41,26 @@ async def on_message(message):
     if message.content == '!test':
         await message.channel.send('Test successful!')
 
-    await bot.process_commands(message)  # Add this line to process commands
+    await bot.process_commands(message)
+
+
+@bot.event
+async def on_error(event, *args, **kwargs):
+    with open('err.log', 'a') as f:
+        if event == 'on_message':
+            f.write(f'Unhandled message: {args[0]}\n')
+        else:
+            raise Exception
+
+
+@bot.event
+async def on_command_error(ctx, error):
+    if isinstance(error, commands.errors.CheckFailure):
+        await ctx.send('You do not have the correct role for this command.')
+    elif isinstance(error, commands.errors.MissingRequiredArgument):
+        await ctx.send('Please include a question to ask.')
+    else:
+        raise error
+
 
 bot.run(BOT_TOKEN)
