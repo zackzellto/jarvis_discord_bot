@@ -7,10 +7,10 @@ load_dotenv()
 OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
 
 
-def get_gpt4_response(question):
+def get_gpt_response(question):
     openai.api_key = OPENAI_API_KEY
     response = openai.Completion.create(
-        engine="davinci",
+        engine="text-davinci-003",
         prompt=f"Q: {question}\nA:",
         temperature=0.9,
         max_tokens=150,

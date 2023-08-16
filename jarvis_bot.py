@@ -1,4 +1,4 @@
-from api.openai_api import get_gpt4_response
+from api.openai_api import get_gpt_response
 import os
 from dotenv import load_dotenv
 import discord
@@ -15,8 +15,8 @@ BOT_TOKEN = os.getenv('DISCORD_BOT_TOKEN')
 
 
 @bot.command(name='ask')
-async def ask_gpt4(ctx, *, question):
-    response = get_gpt4_response(question)
+async def ask_gpt(ctx, *, question):
+    response = get_gpt_response(question)
     await ctx.send(response)
 
 
@@ -39,7 +39,8 @@ async def on_message(message):
         return
 
     if message.content == '!test':
-        await message.channel.send('Test successful!')
+        response = "Line 1: Test successful!\nLine 2: Another line here\nLine 3: And one more line"
+        await message.channel.send(response)
 
     await bot.process_commands(message)
 
